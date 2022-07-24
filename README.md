@@ -6,8 +6,8 @@ This repository is for projects associated to the AWS Cloud DevOps nanodegree fr
   2. 
   3. 
   
-## infrastructure as code challenges
-  1. Launch EC2 Instance inside of a specific VPC
+## infrastructure as code challenges - CloudFormation
+  1. [Launch EC2 Instance inside of a specific VPC](./infrastructure-as-code-challenges)
   2.
   3.
  
