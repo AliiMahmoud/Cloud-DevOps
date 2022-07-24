@@ -175,7 +175,7 @@ aws cloudformation create-stack --stack-name ec2-vpc-stack --region us-east-1 --
     SubnetId: !Ref PublicSubnetID
     ```
 
-- All you need to do to tell AWS CLI that you are using parameters is to add `--parameters file://path` to your create-stack command
+- All you need to do to tell AWS CLI that you are using parameters by adding `--parameters file://path` to your create-stack command
     
     ```bash
     aws cloudformation create-stack  --stack-name ec2-vpc-stack --region us-east-1 --template-body file://template.yml --parameters file://parameters.json
