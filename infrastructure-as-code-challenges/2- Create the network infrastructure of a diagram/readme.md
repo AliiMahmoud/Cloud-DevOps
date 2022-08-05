@@ -5,7 +5,7 @@
   <p align="center">
     In this challenge you are required to <br> create the network infrastructure of a given diagram 
     <br />
-    <br/><br/><br/>
+    <br/>
   </p>
 </div>
 
@@ -37,7 +37,7 @@
 
 ## About The Challenge
 
-> You have been tasked with creating the required Infrastructure-as-code scripts for a new cloud environment in AWS. The Lead Solutions Architect for the project sends you the following diagram <br>
+> You have been tasked with creating the required Infrastructure-as-code scripts for a new cloud environment in AWS. The Lead Solutions Architect for the project sends you the following diagram <br><br>
 ![diagram](./Diagram.png)
 
 
@@ -122,7 +122,7 @@ Before we write the script let's know how to validate the written script and how
     ``` 
 <hr>
 
-3. The next step is creating the public and the private subnets. the only thing that distingush the private form the public is the property `MapPublicIpOnLaunch: `  `True` if the subnet is public to associate public IP to the resources in it.
+3. The next step is creating the public and the private subnets. the only thing that distingush the private form the public is the property `MapPublicIpOnLaunch:`  `True` if the subnet is public to associate public IP to the resources in it.
     ```yaml
     PublicSubnet:
       Type: AWS::EC2::Subnet
@@ -135,7 +135,7 @@ Before we write the script let's know how to validate the written script and how
           - Key: Name
             Value: !Sub ${EnvironmentName}-subnet
     ```
-    - The `!Sub: ` is an AWS intrinsic function to substitute the envName parameter.
+    - The `!Sub:` is an AWS intrinsic function to substitute the envName parameter.
 <hr>
 
 * **You may ask yourself, what if that resources in the private subnet need to download or update packages?**
@@ -159,8 +159,8 @@ Before we write the script let's know how to validate the written script and how
       SubnetId: !Ref PublicSubnet # Subnet containing the NAT Gateway 
       AllocationId: !GetAtt NatGatewayEIP.AllocationId
   ``` 
-    - `DependsOn: ` tells the cloudformation to wait for the InternetGatewayAttachment to be ready to be able to access the Internet.
-    - `!GetAtt ` is an AWS intrinsic function to get an attribute from a resource as we need to assign to the reserved public IP address.
+    - `DependsOn:` tells the cloudformation to wait for the InternetGatewayAttachment to be ready to be able to access the Internet.
+    - `!GetAtt` is an AWS intrinsic function to get an attribute from a resource as we need to assign to the reserved public IP address.
     
 <hr>
 
