@@ -52,14 +52,14 @@
           GroupDescription: SecGroup that only allows inbound access on TCP port 80 and allows unrestricted outbound access
           SecurityGroupIngress: 
             - IpProtocol: tcp
-            FromPort: 80
-            ToPort: 80
-            CidrIp: 0.0.0.0/0
+              FromPort: 80
+              ToPort: 80
+              CidrIp: 0.0.0.0/0
           SecurityGroupEgress: 
             - IpProtocol: -1
-            FromPort: -1
-            ToPort: -1
-            CidrIp: 0.0.0.0/0
+              FromPort: -1
+              ToPort: -1
+              CidrIp: 0.0.0.0/0
     ```
 
 ### Step 2
@@ -136,7 +136,7 @@ aws cloudformation create-stack --stack-name ec2-vpc-stack --region us-east-1 --
 
 ## Additional Section
 
->    lets refine our template to not be a region specific as the subnet Id we provided is for a specific region and also each region has its unique AMI ids associated to it. Let's pass parameters to our script instead of writing them directly.
+>    lets refine our template to not be a region specific as each region has its unique AMI ids associated to it. Let's pass parameters to our script instead of hard-coding them.
 
 - Create `parameters.json` file
     ```json
