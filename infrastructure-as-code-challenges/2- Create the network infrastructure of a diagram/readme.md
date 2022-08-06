@@ -38,28 +38,53 @@
 ## About The Challenge
 
 > You have been tasked with creating the required Infrastructure-as-code scripts for a new cloud environment in AWS. The Lead Solutions Architect for the project sends you the following diagram <br><br>
-![diagram](./Diagram.png)
+
+<p align="center">
+  <img width="75%" src="./Diagram.png" alt="Sublime's custom image"/>
+</p>
+
+<br>
 
 
 
 Now Let't break this diagram into smaller parts
 ### Diagram Resources:
-1. Main VPC with the CIDR range 10.0.0.0/16
-2. An internet gateway attached to the VPC
-3. Two Subnets one public and the other is private
-4. Two Route Tables associated to each subnet
-5. A NAT gateway for the private subnet to provide outboud internet access 
-6. Elastic IP for the NAT gateway
-###
-    AWS::EC2::VPC
-    AWS::EC2::InternetGateway
-    AWS::EC2::VPCGatewayAttachment
-    AWS::EC2::Subnet
-    AWS::EC2::NatGateway
-    AWS::EC2::EIP
-    AWS::EC2::RouteTable
-    AWS::EC2::Route
-    AWS::EC2::SubnetRouteTableAssociation
+
+
+<table>
+  <tr>
+    <th>Needed Resource</th>
+    <th>AWS Type Name</th>
+  </tr>
+
+<tr> <td> Main VPC with the CIDR range 10.0.0.0/16 </td> <td>
+
+`AWS::EC2::VPC` </td>
+ </tr>  
+<tr> <td> An internet gateway attached to the VPC </td> <td>
+
+`AWS::EC2::InternetGateway` <br>
+`AWS::EC2::VPCGatewayAttachment`
+</td></tr>  
+<tr> <td> Two Subnets one public and the other is private </td> <td>
+
+`AWS::EC2::Subnet`
+</td></tr>  
+<tr> <td> Two Route Tables associated to each subnet </td><td>
+
+`AWS::EC2::RouteTable` <br>
+`AWS::EC2::Route`<br>
+`AWS::EC2::SubnetRouteTableAssociation`
+</td> </tr>  
+<tr> <td> A NAT gateway for the private subnet to provide outboud internet access </td> <td>
+
+`AWS::EC2::NatGateway`
+</td></tr> 
+<tr> <td> Elastic IP for the NAT gateway </td><td>
+
+`AWS::EC2::EIP`
+</td> </tr>  
+</table>
 
 <!-- GETTING STARTED -->
 ## Getting Started
