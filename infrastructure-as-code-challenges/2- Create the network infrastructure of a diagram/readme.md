@@ -203,7 +203,7 @@ The route table contains a set of rules called routes, that determine where netw
  
 
 ## Output
-> Let's export some important Ids as the stack output to make it possible to use them in another stack template.
+> Let's export some important Ids to the stack output to use them in another stack template.
 
   ```yaml
   # output section
