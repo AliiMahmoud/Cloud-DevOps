@@ -16,7 +16,9 @@
 ## Solution
 
 ### Step 1
-- <strong> Writing the security Group in the form of :</strong>
+As we want the TCP port 80 open, so we need the a security group with these rules <br>
+According to AWS [documentation](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html): ***A security group controls the traffic that is allowed to reach and leave the resources that it is associated with.***
+- Writing the security Group in the form of :
   ```yaml
   # notice that the Ingress are the inboud rules and the Egress are the outboud rules
   Resources:
@@ -180,7 +182,7 @@ aws cloudformation create-stack --stack-name ec2-vpc-stack --region us-east-1 --
     ```bash
     aws cloudformation create-stack  --stack-name ec2-vpc-stack --region us-east-1 --template-body file://template.yml --parameters file://parameters.json
     ```
--   Now you can access your web server using the public IP found in the instance info.
+-   Now you can access your web server using the public IP found in the instance dashboard.
 
     ![image](Screenshot.png)
 
