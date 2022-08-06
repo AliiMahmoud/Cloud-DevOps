@@ -25,7 +25,7 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#cli-scripts">CLI Scripts</a></li>
+        <li><a href="#cli-commands">CLI Commands</a></li>
         <li><a href="#used-parameters">Used Parameters</a></li>  
       </ul>
     </li>
@@ -66,7 +66,7 @@ Now Let't break this diagram into smaller parts
 
 Before we write the script let's know how to validate the written script and how to update an existing stack as we will build it step by step. 
 
-### CLI Scripts
+### CLI Commands
 
 * To validate the syntax `typo` of template we'll use the following script and it will prompt any error
     ```bash
