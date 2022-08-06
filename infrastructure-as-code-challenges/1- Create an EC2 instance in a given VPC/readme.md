@@ -10,8 +10,8 @@
 
 ## Prerequisites
   1. AWS CLI Installed [Here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-  2. You should have a VPC available in your account
-  3. You should have a public subnet available in the VPC Selected
+  2. You should have a VPC available in your account, I will use the default 
+  3. You should have a public subnet available in the VPC Selected 
 
 ## Solution
 
