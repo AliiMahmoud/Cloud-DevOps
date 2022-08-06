@@ -30,7 +30,7 @@
       </ul>
     </li>
     <li> <a href="#creating-the-stack">Creating the Stack</a></li>
-      <li> <a href="#todo">Todo List</a></li>
+      <li> <a href="#output">Output</a></li>
 
   </ol>
 
@@ -202,12 +202,18 @@ The route table contains a set of rules called routes, that determine where netw
     ```   
  
 
-## Todo
-- [x] Creating the VPC
-- [x] Attaching the internet gateway
-- [x] Creating the 2 subnets
-- [X] Creating the route tables
-- [ ] Exporting the resource ids to use them in another stack template
+## Output
+> Let's export some important Ids as the stack output to make it possible to use them in another stack template.
 
+  ```yaml
+  # output section
+  LogicalName:
+    Description: String
+    Value: !Ref Resource/Parameter Logical Name
+    Export:
+      Name: String # The name of the output variable
+  ```
+
+  
 
 

@@ -145,3 +145,36 @@ Resources:
     Properties:
       SubnetId: !Ref PrivateSubnet
       RouteTableId: !Ref PrivateRouteTable
+
+
+
+#################################################
+#  Lets export some resources for further usage
+#################################################
+
+Outputs:
+  VPC:
+    Description: A reference to the created VPC
+    Value: !Ref MyVPC
+    Export:
+      Name: !Sub ${EnvironmentName}-VPCID
+  PublicSubnet:
+    Description: A reference to the public subnet
+    Value: !Ref PublicSubnet
+    Export:
+      Name: !Sub ${EnvironmentName}-PUB-ST
+  PrivateSubnet: 
+    Description: A reference to the private subnet
+    Value: !Ref PrivateSubnet
+    Export:
+      Name: !Sub ${EnvironmentName}-PRI-ST
+  PublicRouteTable:
+    Description: Public Routing
+    Value: !Ref PublicRouteTable
+    Export:
+      Name: !Sub ${EnvironmentName}-PUB-RT
+  PrivateRouteTable:
+    Description: Private Routing 
+    Value: !Ref PrivateRouteTable
+    Export:
+      Name: !Sub ${EnvironmentName}-PRI-RT
