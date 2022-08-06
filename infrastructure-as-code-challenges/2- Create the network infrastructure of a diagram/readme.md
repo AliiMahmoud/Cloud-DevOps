@@ -1,12 +1,12 @@
 
 
 <div align="center">
-  <h2 align="center">Infrastructure as Code Challenge 2</h2>
-  <p align="center">
+  <h1 align="center">Infrastructure as Code Challenge 2</h1>
+  <h3 align="center">
     In this challenge you are required to <br> create the network infrastructure of a given diagram 
     <br />
     <br/>
-  </p>
+  </h3>
 </div>
 
 <!-- TABLE OF CONTENTS -->
