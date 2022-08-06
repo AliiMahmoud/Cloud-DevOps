@@ -78,10 +78,10 @@ Before we write the script let's know how to validate the written script and how
     ```
  
 ### Used Parameters
-`EnvironmentName` - An environment name to be prefix to the resources
-`VpcCIDR` - The VPC CIDR Block - IP Range 
-`PublicSubnetCidr` - The public Subnet CIDR Block
-`PrivateSubnetCidr` - The Private Subnet CIDR Block 
+> - `EnvironmentName` - An environment name to be prefix to the resources
+> - `VpcCIDR` - The VPC CIDR Block - IP Range 
+> - `PublicSubnetCidr` - The public Subnet CIDR Block
+> - `PrivateSubnetCidr` - The Private Subnet CIDR Block 
 
 ## Creating the Stack
 
