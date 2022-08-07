@@ -1,0 +1,82 @@
+Description: >
+    Udacity challenge 3
+    This template Deploys a Linux server in a private subnet
+    with IAM Role to access it from EC2 session manager, using the network infrastructure created in a challenge 2
+
+# Parameters Used for the script
+Parameters:
+  EnvironmentName:
+    Description: An environment name that will be prefixed to resource names
+    Type: String
+  InstanceImageId:
+    Description: The AMI ID of the Instance
+    Type: String
+  InstanceType:
+    Description: Amazon Instace Type used
+    Type: String
+    Default: t3.micro
+    AllowedValues:
+      - t3.micro
+      - t3.medium
+      - t3.small
+  
+Resources:   
+  # The Security Group of the EC2 Instance
+  ServerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http on port 80 to our host
+      VpcId: 
+        Fn::ImportValue:
+          !Sub "${EnvironmentName}-VPCID"
+      SecurityGroupEgress:
+        - IpProtocol: "-1"
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+  # Role For Accessing the server from the aws system manager
+  SystemManagerAccessRole: 
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: MySSMAccessRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore # The attached policy
+
+  # Instance Profile
+  ServerInstanceProfile: 
+    Type: "AWS::IAM::InstanceProfile"
+    Properties: 
+      Roles: 
+        - !Ref SystemManagerAccessRole
+
+
+  # Our AWS Linux 2 Server
+  Ec2Instance: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      ImageId: !Ref InstanceImageId
+      InstanceType: !Ref InstanceType
+      IamInstanceProfile: !Ref ServerInstanceProfile
+      NetworkInterfaces:
+          - AssociatePublicIpAddress: false
+            DeviceIndex: "0"
+            GroupSet: 
+              - Ref: ServerSecurityGroup
+            SubnetId: 
+              Fn::ImportValue:
+                !Sub "${EnvironmentName}-PRI-ST"
