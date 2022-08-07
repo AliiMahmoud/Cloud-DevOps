@@ -9,4 +9,4 @@ This repository is for projects and challenges associated with the Cloud DevOps 
 ## Infrastructure as Code challenges - CloudFormation
   1. [Launch EC2 Instance inside a given VPC](./infrastructure-as-code-challenges/1-%20Create%20an%20EC2%20instance%20in%20a%20given%20VPC)
   2. [Create the network infrastructure of a diagram](./infrastructure-as-code-challenges/2-%20Create%20the%20network%20infrastructure%20of%20a%20diagram)
-  3. 
+  3. [Deploying a Linux server in a private subnet with IAM Role to access it from EC2 session manager, using the network infrastructure created in a challenge 2](./infrastructure-as-code-challenges/3-%20Deploying%20a%20Linux%20server%20in%20a%20private%20subnet/)
