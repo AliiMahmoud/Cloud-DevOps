@@ -25,6 +25,18 @@ jobs:
           command: |
             echo "Hello, Friend!"
 
+  test:
+  # env variables for the job level
+    environment:
+      CODE: 123
+    docker:
+      - image: circleci/node
+    steps:
+      - run:
+          name: building first step
+          command: |
+            echo "testing"
+
 
 # list of workflows
 # each has the order in which job should be running
