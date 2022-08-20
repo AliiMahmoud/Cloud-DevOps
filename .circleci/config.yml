@@ -5,7 +5,7 @@ jobs:
     docker: 
       - image: circleci/node:13.8.0
     steps:
-      - run: echo hello
+      - run: echo '<< pipeline.id >>'
   print_world:
     docker: 
       - image: circleci/node:13.8.0
@@ -16,14 +16,7 @@ jobs:
 workflows:
   default:
     jobs:
-      - print_hello # ref
-      - print_world:
-          requires: [print_hello]
-  second:
-    jobs:
-      - print_world # ref
-      - print_hello:
-          requires: [print_world]
+      - print_hello 
 
 
 
