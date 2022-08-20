@@ -26,13 +26,9 @@ jobs:
             echo "Hello, Friend!"
 
 
-# # list of workflows
-# # each has the order in which job should be running
-# workflows:
-#   default:
-#     jobs:
-#       - job1 # ref
-#       - job2
-#       - job3:
-#         requires: [job1]
-
+# list of workflows
+# each has the order in which job should be running
+workflows:
+  default:
+    jobs:
+      - build # ref
