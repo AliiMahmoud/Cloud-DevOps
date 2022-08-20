@@ -18,7 +18,7 @@ jobs:
     environment:
       CODE: 123
     docker:
-      - image: alphine:3.15
+      - image: circleci/node
     steps:
       - run:
           name: building first step
