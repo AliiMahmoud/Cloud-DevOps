@@ -19,14 +19,11 @@ jobs:
       CODE: 123
     docker:
       - image: alphine:3.15
-    branches:
-      - master
-      - /rc-.*/ # regex -> rc-.*
     steps:
       - run:
-        name: building first step
-        command: |
-          echo "Hello, Friend!"
+          name: building first step
+          command: |
+            echo "Hello, Friend!"
 
 
 # # list of workflows
