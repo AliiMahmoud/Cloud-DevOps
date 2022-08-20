@@ -8,7 +8,7 @@ jobs:
       PROJECT_URL: << pipeline.project.git_url >>/compare/lol
     steps:
       - run: echo '<< pipeline.id >>'
-      - run: echo $PROJECT_URL
+      - run: echo '$PROJECT_URL'
   print_world:
     docker: 
       - image: circleci/node:13.8.0
