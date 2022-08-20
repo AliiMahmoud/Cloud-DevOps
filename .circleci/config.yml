@@ -14,25 +14,15 @@ version: 2.1
 # 
 jobs:
   print_hello:
-    environment:
-      P: lol
     docker: 
       - image: circleci/node:13.8.0
     steps:
-      - run:
-          name: printing hello
-          command: |
-            echo "Hello "
+      - run: echo hello
   print_world:
-    environment:
-      P: lol2
     docker: 
       - image: circleci/node:13.8.0
     steps:
-      - run:
-          name: printing world
-          command: |
-            echo "world!"
+      - run: echo world
 
 # list of workflows
 # each has the order in which job should be running
