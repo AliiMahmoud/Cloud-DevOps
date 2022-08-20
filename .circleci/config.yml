@@ -1,17 +1,5 @@
 version: 2.1
 
-# # reusable block of code
-# commands:
-#   command1:
-#     description:
-#     parameters:
-#       workflow_id:
-#         type: string
-#       event:
-#         type: string
-#     steps: # - steps   
-
-# 
 jobs:
   print_hello:
     docker: 
@@ -25,13 +13,17 @@ jobs:
       - run: echo world
 
 # list of workflows
-# each has the order in which job should be running
 workflows:
   default:
     jobs:
       - print_hello # ref
       - print_world:
           requires: [print_hello]
+  second:
+    jobs:
+      - print_world # ref
+      - print_hello:
+          requires: [print_world]
 
 
 
