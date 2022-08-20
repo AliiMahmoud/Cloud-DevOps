@@ -1,0 +1,41 @@
+version: 2.1
+
+# # reusable block of code
+# commands:
+#   command1:
+#     description:
+#     parameters:
+#       workflow_id:
+#         type: string
+#       event:
+#         type: string
+#     steps: # - steps   
+
+# 
+jobs:
+  build:
+  # env variables for the job level
+    environment:
+      CODE: 123
+    docker:
+      - image: alphine:3.15
+    branches:
+      - master
+      - /rc-.*/ # regex -> rc-.*
+    steps:
+      - run:
+        name: building first step
+        command: |
+          echo "Hello, Friend!"
+
+
+# # list of workflows
+# # each has the order in which job should be running
+# workflows:
+#   default:
+#     jobs:
+#       - job1 # ref
+#       - job2
+#       - job3:
+#         requires: [job1]
+
