@@ -24,6 +24,9 @@ jobs:
           name: building first step
           command: |
             echo "Hello, Friend!"
+      - run:
+          command: |
+            ls -la
 
   test:
   # env variables for the job level
@@ -44,4 +47,3 @@ workflows:
   default:
     jobs:
       - build # ref
-      - test
