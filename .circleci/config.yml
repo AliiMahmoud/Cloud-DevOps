@@ -1,0 +1,52 @@
+version: 2.1
+
+# defining some anchors 
+default_container: &container
+  docker:
+    - image: circleci/node:13.8.0
+
+jobs:
+  # Build stage
+  build:
+    <<: *container
+    steps:
+      - checkout
+      - run: cd Create-a-CI-Pipeline
+      - run: npm i
+      - save_cache:
+          key: "npm-packages" 
+          paths:
+            - node-modules
+  # Testing stage
+  test:
+    <<: *container
+    steps:
+      - checkout
+      - run: cd Create-a-CI-Pipeline
+      - restore_cache:
+          keys: ['npm-packages']
+      - run: npm run test
+  # Dependency vulnerability analysis stage
+  analyze:
+    <<: *container
+    steps:
+      - checkout
+      - run: cd Create-a-CI-Pipeline
+      - restore_cache:
+          keys: ['npm-packages']
+      - run: npm audit
+      
+# The pipeline's workflow
+# build -> test -> analysis
+workflows:
+  simple:
+    jobs:
+      - build
+      - test:
+          requires: [build]
+      - analyze:
+          requires: [test]
+
+
+
+
