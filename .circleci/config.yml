@@ -19,7 +19,7 @@ commands:
 jobs:
   save_to_workspace:
     <<: *def_container
-    # environment:
+    # environment: 
     #   PROJECT_URL: 'http'
     working_directory: ~/devops-project
     steps:
