@@ -11,7 +11,6 @@ jobs:
     <<: *container
     steps:
       - checkout
-      - run: cd Create-a-CI-Pipeline
       - run: npm i
       - save_cache:
           key: "npm-packages" 
@@ -22,9 +21,6 @@ jobs:
     <<: *container
     steps:
       - checkout
-      - run: cd Create-a-CI-Pipeline
-      - run: ls -la
-      - run: pwd
       - restore_cache:
           keys: ['npm-packages']
       - run: npm run test
@@ -33,7 +29,6 @@ jobs:
     <<: *container
     steps:
       - checkout
-      - run: cd Create-a-CI-Pipeline
       - restore_cache:
           keys: ['npm-packages']
       - run: npm audit
