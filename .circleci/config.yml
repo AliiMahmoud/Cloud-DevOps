@@ -26,7 +26,7 @@ jobs:
       - run: npm i
       - run: npm run test
       - store_test_results:
-          path: test-results
+          path: ~/project
   # Dependency vulnerability analysis stage
   analyze:
     <<: *container
