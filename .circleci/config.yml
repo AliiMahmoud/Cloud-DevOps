@@ -9,23 +9,16 @@ jobs:
     steps:
       - run: echo '<< pipeline.id >> - {{ epoch }} - {{ .Environment.PROJECT_URL }}' > file.txt
       - run: pwd
-      - persist_to_workspace:
-          root: "."
-          paths: [file.txt]
+      - run: ls ~/
   get_from_workspace:
     docker: 
       - image: circleci/node:13.8.0
-    steps:
-      - attach_workspace:
-          at: "."
-      - run : cat file.txt
+    steps: []
 # list of workflows
 workflows:
   default:
     jobs:
       - save_to_workspace
-      - get_from_workspace:
-          requires: [save_to_workspace]
 
 
 
