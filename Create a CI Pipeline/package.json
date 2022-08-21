@@ -9,7 +9,9 @@
     "start": "node src/index.js"
   },
   "jest": {
-    "testMatch": ["<rootDir>/src/tests/**"]
+    "testMatch": [
+      "<rootDir>/src/tests/**"
+    ]
   },
   "repository": {
     "type": "git",
