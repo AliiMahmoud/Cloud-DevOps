@@ -8,8 +8,7 @@ jobs:
       PROJECT_URL: << pipeline.project.git_url >>/compare/lol
     steps:
       - run: echo '<< pipeline.id >> - {{ epoch }} - {{ .Environment.PROJECT_URL }}' > file.txt
-      - run: mkdir tmp
-      - run: mkdir tmp/workspace
+      - run: mkdir /tmp/workspace
       - persist_to_workspace:
           root: /tmp/workspace
           paths: [file.txt]
