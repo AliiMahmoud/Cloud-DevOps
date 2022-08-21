@@ -5,37 +5,40 @@ default_container: &def_container
   docker:
     - image: circleci/node:13.8.0
 
-# defining some commands
-commands:
-  say_hello:
-    description: Saying Hello in terminal
-    parameters:
-      to:
-        type: string
-        default: "world"
-    steps:
-      - run: echo hello << parameters.to >>
-
 jobs:
-  run_job:
+  build:
     <<: *def_container
-    working_directory: ~/devops-project
     steps:
-      - run:
-          name: "Return error"
-          command: return 1
-      - run:
-          name: "A failure happened"
-          command: echo "an error happened "
-          when: on_fail 
-          
+      - checkout
+      - run: npm i
+      - save_cache:
+          key: "npm-packages" 
+          paths:
+            - /src/node-modules
+  test:
+    <<: *def_container
+    steps:
+      - checkout
+      - restore_cache:
+          keys: ['npm-packages']
+      - run: npm i
+  analyze:
+    <<: *def_container
+    steps:
+      - checkout
+      - restore_cache:
+          keys: ['npm-packages']
+      - run: npm audit
       
 # list of workflows
 workflows:
   simple:
     jobs:
-      - run_job
-
+      - build
+      - test:
+          requires: [build]
+      - analyze:
+          requires: [test]
 
 
 
