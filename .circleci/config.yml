@@ -13,16 +13,16 @@ jobs:
       - checkout
       - run: npm i
       - save_cache:
-          key: "npm-packages" 
+          key: "npm-packagesq" 
           paths:
-            - node-modules
+            - ~/node-modules
   # Testing stage
   test:
     <<: *container
     steps:
       - checkout
       - restore_cache:
-          keys: ['npm-packages']
+          keys: ['npm-packagesq']
       - run: npm run test
   # Dependency vulnerability analysis stage
   analyze:
@@ -30,7 +30,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: ['npm-packages']
+          keys: ['npm-packagesq']
       - run: npm audit
       
 # The pipeline's workflow
