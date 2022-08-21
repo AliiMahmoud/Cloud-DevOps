@@ -12,7 +12,7 @@ jobs:
       - checkout
       - run: npm i
       - save_cache:
-          key: "npm-packages" 
+          key: "npm-packagess" 
           paths:
             - node-modules
   test:
@@ -20,7 +20,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: ['npm-packages']
+          keys: ['npm-packagess']
       - run: npm i
   analyze:
     <<: *def_container
