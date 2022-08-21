@@ -24,6 +24,7 @@ jobs:
       - checkout
       - run: cd Create-a-CI-Pipeline
       - run: ls -la
+      - run: pwd
       - restore_cache:
           keys: ['npm-packages']
       - run: npm run test
