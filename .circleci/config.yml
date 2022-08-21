@@ -7,13 +7,10 @@ jobs:
     environment:
       PROJECT_URL: << pipeline.project.git_url >>/compare/lol
     steps:
-      - run: echo '<< pipeline.id >> - {{ epoch }} - {{ .Environment.PROJECT_URL }}' > file.txt
+      - run: echo '<< pipeline.id >> ' > file.txt
       - run: pwd
       - run: ls ~/
-  get_from_workspace:
-    docker: 
-      - image: circleci/node:13.8.0
-    steps: []
+      
 # list of workflows
 workflows:
   default:
