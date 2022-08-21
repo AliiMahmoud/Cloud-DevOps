@@ -17,24 +17,24 @@ commands:
       - run: echo hello << parameters.to >>
 
 jobs:
-  save_to_workspace:
+  run_job:
     <<: *def_container
-    # environment: 
-    #   PROJECT_URL: 'http'
     working_directory: ~/devops-project
     steps:
       - run:
-          name: "printing working dir"
-          command: pwd
-      - say_hello:
-          to: "from my world"
-      
+          name: "Return error"
+          command: return 1
+      - run:
+          name: "A failure happened"
+          command: echo "an error happened "
+          when: on_fail 
+          
       
 # list of workflows
 workflows:
-  default:
+  simple:
     jobs:
-      - save_to_workspace
+      - run_job
 
 
 
