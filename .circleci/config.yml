@@ -1,15 +1,34 @@
 version: 2.1
 
+# defining some anchors 
+default_container: &def_container
+  docker:
+    - image: circleci/node:13.8.0
+
+# defining some commands
+commands:
+  say_hello:
+    description: Saying Hello in terminal
+    parameters:
+      to:
+        type: string
+        default: "world"
+    steps:
+      - run: echo hello << parameters.to >>
+
 jobs:
   save_to_workspace:
-    docker: 
-      - image: circleci/node:13.8.0
-    environment:
-      PROJECT_URL: << pipeline.project.git_url >>/compare/lol
+    <<: *def_container
+    # environment:
+    #   PROJECT_URL: 'http'
+    working_directory: ~/devops-project
     steps:
-      - run: echo '<< pipeline.id >> ' > file.txt
-      - run: pwd
-      - run: ls ~/
+      - run:
+          name: "printing working dir"
+          command: pwd
+      - say_hello:
+          to: "from my world"
+      
       
 # list of workflows
 workflows:
