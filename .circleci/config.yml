@@ -14,7 +14,7 @@ jobs:
       - save_cache:
           key: "npm-packages" 
           paths:
-            - /src/node-modules
+            - node-modules
   test:
     <<: *def_container
     steps:
