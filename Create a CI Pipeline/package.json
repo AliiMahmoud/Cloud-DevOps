@@ -10,7 +10,7 @@
   },
   "jest": {
     "testMatch": [
-      "<rootDir>/src/tests/**"
+      "<rootDir>/Create a CI Pipeline/src/tests/**"
     ]
   },
   "repository": {
