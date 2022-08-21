@@ -11,7 +11,9 @@ jobs:
     steps:
       - checkout
       - run: npm i
-      - run: ls /src
+      - run: ls
+      - run: ls ~/
+      - run: ls /home
       # - save_cache:
       #     key: "npm-packagess" 
       #     paths:
