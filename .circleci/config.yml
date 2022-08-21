@@ -25,6 +25,8 @@ jobs:
           keys: ['npm']
       - run: npm i
       - run: npm run test
+      - store_test_results:
+          path: test-results
   # Dependency vulnerability analysis stage
   analyze:
     <<: *container
