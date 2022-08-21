@@ -23,6 +23,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: ['npm']
+      - run: npm i
       - run: npm run test
   # Dependency vulnerability analysis stage
   analyze:
