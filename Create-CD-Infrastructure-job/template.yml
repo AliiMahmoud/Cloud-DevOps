@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+  Udacity [CI-CD course] challenge2. infrastructure creation script 
+Parameters:
+  InstanceImageId:
+    Type: AWS::EC2::Image::Id
+    Default: 'ami-05fa00d4c63e32376'
+
+Resources:
+  secGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enabling SSH access via port 22
+      SecurityGroupIngress:
+        - IpProtocol: 'tcp'
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0 
+        
+  myEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref InstanceImageId
+      InstanceType: t2.micro
+      SecurityGroups:
+        - !Ref secGroup      
+      KeyName: udacity
+      
