@@ -39,7 +39,7 @@
         - image: circleci/node:13.8.0
     ```
 - ### Creating the first job(stage) build
-    In order to build this simple node app we'll install its dependencies then build it and cache the node nodules to use use then in another job. 
+    In order to build this simple node app we'll install its dependencies then build it and cache the node modules to use them in another job. 
     ```yaml
       build:
         <<: *container # referencing the docker anchor 
@@ -53,9 +53,10 @@
     ``` 
 - ### Test stage
     in this stage we'll perform a simple test written in `/src/tests/testdata.js` file using javascript testing framework called `jest`, but first let's configure the test script in `package.json` 
-        - install jest using `npm install jest --save-dev`
-        - under the script map in package.json file add `"test": "jest"` 
-        - And now configure jest to match tests location
+        
+    - install jest using `npm install jest --save`
+    - under the script map in package.json file add `"test": "jest"` 
+    - And now configure jest to match tests location
     ```json
     {
         ...
@@ -82,10 +83,10 @@
     ``` 
 
 - ### analyze stage
-    This stage is for performing dependency vulnerability checks using the script  `npm audit` instead of `npm run test`
+    This stage is for performing dependency vulnerability checks using the script  `npm audit`
 
 
-    #### we could merge these jobs into one as they are very little, but in real scenarios the stages are more complex 
+### Note: we could merge these jobs into one as they are very little, but in real scenarios the stages are more complex 
 
 The last thing left is creating the order of the execution (workflow)
 
