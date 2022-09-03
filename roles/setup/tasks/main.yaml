@@ -1,0 +1,40 @@
+---
+- name: "update apt packages"
+  become: true
+  become_method: sudo
+  apt:
+    update_cache: yes
+
+- name: "upgrade apt packages"
+  become: true
+  become_method: sudo
+  apt:
+    upgrade: yes
+
+- name: Installing Node.js and npm
+  become: true
+  apt:
+    name: ["nodejs", "npm"]
+    state: latest
+    update_cache: yes
+
+- name: "install pm2"
+  become: yes
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    state: present
+
+- name: creating web directory
+  file:
+    path: ~/web
+    state: directory
+
+- name: copying index file
+  copy:
+    src: index.js
+    dest: ~/web/index.js
+
+- name: running the server
+  shell: pm2 start ~/web/index.js -f

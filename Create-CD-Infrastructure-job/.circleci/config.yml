@@ -7,10 +7,6 @@ jobs:
     steps:
       - checkout
       - run:
-        command: pwd
-      - run:
-        command: ls -la
-      - run:
           name: Create the infrastructure
           command: |
             aws cloudformation deploy \
