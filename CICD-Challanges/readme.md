@@ -1,8 +1,5 @@
 # AWS Cloud-DevOps
 CI/CD projects and challenges of Cloud DevOps nanodegree from Udacity
-
-## Project
-  
   
 ## Continuous integration and continuous delivery challenges - CircleCI
   1. [build a simple Continuous Integration pipeline from 3 stages](./Create-a-CI-Pipeline/)
