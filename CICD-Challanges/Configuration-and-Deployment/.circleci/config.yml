@@ -1,0 +1,69 @@
+version: 2.1
+commands:
+  destroy_environment:
+    steps:
+      - run:
+          name: Destroy environment - rollback
+          command: |
+            aws cloudformation delete-stack --stack-name prod-${CIRCLE_WORKFLOW_ID}
+
+jobs:
+  create_infrastructure:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Create the infrastructure
+          command: |
+            aws cloudformation deploy \
+              --stack-name prod-${CIRCLE_WORKFLOW_ID} \
+              --template-file template.yml \
+              --region us-east-1
+              
+  configure_infrastructure:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["9d:7f:58:d7:ac:58:ff:ad:49:f8:2e:eb:48:34:e9:5d"]
+      - run:
+          name: Install Ansible
+          command: apk add --update ansible
+      - run: 
+          name: Run Playbook and Configure server
+          command: ansible-playbook playbook.yml -i inventory.txt
+      - destroy_environment 
+        when: on_fail
+
+
+  perform_smoke_test:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run: apk add --update curl
+      - run:
+          name: smoke test 1
+          command: | 
+            URL="https://blog.udacity.com/"
+            if curl -s --head ${URL}
+            then
+              return 0
+            else 
+              return -1
+            fi
+      - destroy_environment
+        when: on_fail
+              
+workflows:
+  my_workflow:
+    jobs:
+      - create_infrastructure
+      - configure_infrastructure:
+          requires: ["create_infrastructure"]
+      - perform_smoke_test:
+          requires: ["configure_infrastructure"]
+
+
+    
