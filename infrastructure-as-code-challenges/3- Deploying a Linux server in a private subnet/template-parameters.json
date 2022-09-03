@@ -1,0 +1,14 @@
+[
+    {
+        "ParameterKey": "EnvironmentName",
+		"ParameterValue": "UdacityProject"
+    },
+    {
+        "ParameterKey": "InstanceImageId",
+		"ParameterValue": "ami-0cabc39acf991f4f1"
+    },
+    {
+        "ParameterKey": "InstanceType",
+		"ParameterValue": "t3.micro"
+    }
+]
