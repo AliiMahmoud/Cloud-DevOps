@@ -7,9 +7,9 @@ jobs:
     steps:
       - checkout
       - run:
-        command: pwd
+          command: pwd
       - run:
-        command: ls -la
+          command: ls -la
       - run:
           name: Create the infrastructure
           command: |
