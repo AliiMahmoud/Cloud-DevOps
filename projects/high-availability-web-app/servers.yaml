@@ -1,0 +1,139 @@
+Description: >
+    Udacity - Deploy An autoScaling group and Elastic Load Balancer
+
+Parameters:
+  EnvironmentName:
+    Description: An environment name that will be prefixed to resource names
+    Type: String
+  InstanceImageId:
+    Description: The AMI ID of the Instance in AS-Group
+    Type: String
+  InstanceType:
+    Description: Amazon Instace Type used in the AS-Group
+    Type: String
+    Default: t3.small
+    AllowedValues:
+      - t2.micro
+      - t3.medium
+      - t3.small
+  
+Resources:
+  LBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http to client host
+      VpcId: 
+        Fn::ImportValue:
+          !Sub ${EnvironmentName}-VPCID
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: !Sub ${EnvironmentName}-LB-SecGroup
+        
+  WebServerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http to our hosts and SSH from local only
+      VpcId: 
+        Fn::ImportValue:
+          !Sub ${EnvironmentName}-VPCID
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+  ASGLaunchConfiguration:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      ImageId: !Ref InstanceImageId
+      InstanceType: !Ref InstanceType
+      SecurityGroups:
+        - Ref: WebServerSecurityGroup
+      BlockDeviceMappings:
+        - DeviceName: "/dev/sdk"
+          Ebs:
+            VolumeSize: '10'
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          sudo apt-get update -y
+          sudo apt install apache2 -y
+          sudo systemctl start apach2.service
+          cd /var/www/html
+          echo "it works! Udagram, Udacity" > index.html
+
+  AutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      LaunchConfigurationName: !Ref ASGLaunchConfiguration
+      VPCZoneIdentifier:
+        - Fn::ImportValue: !Sub ${EnvironmentName}-PRI-ST1
+        - Fn::ImportValue: !Sub ${EnvironmentName}-PRI-ST2
+      MinSize: '2'
+      MaxSize: '4'
+      TargetGroupARNs:
+        - Ref: WebAppTargetGroup
+  MyWebAppLB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Subnets:
+      - Fn::ImportValue: !Sub "${EnvironmentName}-PUB-ST1"
+      - Fn::ImportValue: !Sub "${EnvironmentName}-PUB-ST2"
+      SecurityGroups:
+      - Ref: LBSecurityGroup
+  LoadBalancerListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref WebAppTargetGroup
+      LoadBalancerArn: !Ref MyWebAppLB
+      Protocol: HTTP
+      Port: '80'
+  
+  LBListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      Actions:
+      - Type: forward
+        TargetGroupArn: !Ref WebAppTargetGroup
+      Conditions:
+      - Field: path-pattern
+        Values: [/]
+      ListenerArn: !Ref 'LoadBalancerListener'
+      Priority: 1
+      
+  WebAppTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties: 
+      VpcId: 
+        Fn::ImportValue: !Sub ${EnvironmentName}-VPCID 
+      Port: 80
+      Protocol: HTTP
+      HealthCheckPath: /
+      HealthCheckProtocol: HTTP
+      HealthCheckIntervalSeconds: 10
+      HealthCheckTimeoutSeconds: 8
+      HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 5
+
+Outputs:
+  MyWebAppLB:
+    Description: The URL for our LB
+    Value: !Join ["", ["http://", !GetAtt MyWebAppLB.DNSName,]]
+    Export:
+      Name: !Sub ${EnvironmentName}-LoadBalancer-URL

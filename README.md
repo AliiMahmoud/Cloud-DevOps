@@ -3,8 +3,8 @@ This repository is for projects and challenges associated with the Cloud DevOps 
 
 ## Nanodegree Projects
   1. [Deploy a static website using S3 bucket and content Delivery Network (CDN) - CloudFront]() 
-  2. [Deploy a high-availability web app using IaC - CloudFormation](./Projects/Deploy%20a%20high-availability%20web%20app%20using%20CloudFormation)
-  3. 
+  2. [Deploy a high-availability web app using IaC - CloudFormation](./Projects/high-availability-web-app)
+  3. [Give Your Application Auto-Deploy Superpowers - CICD](https://github.com/AliiMahmoud/Auto-Deploy-Superpowers)
   
 ## Infrastructure as Code challenges - CloudFormation
   1. [Launch EC2 Instance inside a given VPC](./infrastructure-as-code-challenges/1-%20Create%20an%20EC2%20instance%20in%20a%20given%20VPC)
